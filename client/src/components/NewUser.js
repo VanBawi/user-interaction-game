@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalState';
+
+import { UserGlobalContext } from '../context/UserState';
 import { uploadImage } from '../utils/uploadFunction';
 
 export const NewUser = () => {
@@ -7,8 +8,7 @@ export const NewUser = () => {
 	const [phone, setPhone] = useState('');
 	const [file, setFile] = useState('');
 	const [loading, setLoading] = useState(null);
-
-	const { addUser } = useContext(GlobalContext);
+	const { addUser } = useContext(UserGlobalContext);
 
 	const uploadFile = async (e) => {
 		const file = e.target.files[0];
@@ -23,22 +23,21 @@ export const NewUser = () => {
 		}
 	};
 
-	// console.log('file', file);
-
 	const onSubmit = (e) => {
 		e.preventDefault();
-
 		const newUser = {
 			name,
 			phone,
 			receipt: file,
 		};
-
 		addUser(newUser);
 	};
 
 	return (
 		<>
+			<a href='/quiz'>
+				<button>go to quiz</button>
+			</a>
 			<h3>Add New User</h3>
 			<form onSubmit={onSubmit}>
 				<div className='form-control'>

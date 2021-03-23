@@ -1,39 +1,47 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalState';
+
+import Swal from 'sweetalert2';
+import { UserGlobalContext } from '../context/UserState';
 
 export const TakeRandomQuiz = () => {
 	const [text, setText] = useState('');
-	const [amount, setAmount] = useState(0);
+	const [amount, setAmount] = useState('');
+	const [correctAnswer, setCorrectAnswer] = useState([]);
+	const [status, setStatus] = useState(false);
 
-	const { addTransaction } = useContext(GlobalContext);
+	const { addQuiz, quizzes, getQuizzes } = useContext(GlobalContext);
+	const { users, getUsers } = useContext(UserGlobalContext);
+
+	useEffect(() => {
+		getUsers();
+		getQuizzes();
+	}, []);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-
-		const newTransaction = {
-			text,
-			amount: +amount,
+		const quizData = {
+			user_answer: amount,
+			correctAnswer: correctAnswer.length,
+			isCorrect: status,
 		};
-
-		addTransaction(newTransaction);
+		addQuiz(quizData);
 	};
 
+	// var test = Math.floor(Math.random() * 11) + 20
+	console.log('users', users);
 	return (
 		<>
-			<h3>Add new transaction</h3>
+			<a href='/'>
+				<button> go to user</button>
+			</a>
+			{/* {amount ? Swal.fire('Oops...', 'Something went wrong!', 'success') : null} */}
+
 			<form onSubmit={onSubmit}>
-				<div className='form-control'>
-					<label htmlFor='text'>Text</label>
-					<input
-						type='text'
-						value={text}
-						onChange={(e) => setText(e.target.value)}
-						placeholder='Enter text...'
-					/>
-				</div>
+				<div className='form-control'></div>
 				<div className='form-control'>
 					<label htmlFor='amount'>
-						Amount <br />
+						Answer <br />
 					</label>
 					<input
 						type='number'
@@ -42,7 +50,7 @@ export const TakeRandomQuiz = () => {
 						placeholder='Enter amount...'
 					/>
 				</div>
-				<button className='btn'>Add transaction</button>
+				<button className='btn'>submit</button>
 			</form>
 		</>
 	);

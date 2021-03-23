@@ -1,55 +1,54 @@
 import React, { createContext, useReducer } from 'react';
-import AppReducer from './AppReducer';
 import axios from 'axios';
+import UserReducer from './UserReducer';
 
 // Initial state
 const initialState = {
-	quizzes: [],
 	error: null,
 	loading: true,
+	users: [],
 };
 
 // Create context
-export const GlobalContext = createContext(initialState);
+export const UserGlobalContext = createContext(initialState);
 
 // Provider component
-export const GlobalProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(AppReducer, initialState);
-
+export const UserGlobalProvider = ({ children }) => {
+	const [state, dispatch] = useReducer(UserReducer, initialState);
 	// Actions
-	async function getQuizzes() {
+	async function getUsers() {
 		try {
-			const res = await axios.get('/api/v1/quizzes');
+			const res = await axios.get('/api/v1/users');
 
 			dispatch({
-				type: 'GET_QUIZZES',
+				type: 'GET_USERS',
 				payload: res.data.data,
 			});
 		} catch (err) {
 			dispatch({
-				type: 'QUIZ_ERROR',
+				type: 'USER_ERROR',
 				payload: err.response.data.error,
 			});
 		}
 	}
 
-	async function deleteQuiz(id) {
+	async function deleteUser(id) {
 		try {
-			await axios.delete(`/api/v1/quizzes/${id}`);
+			await axios.delete(`/api/v1/users/${id}`);
 
 			dispatch({
-				type: 'DELETE_QUIZ',
+				type: 'DELETE_USER',
 				payload: id,
 			});
 		} catch (err) {
 			dispatch({
-				type: 'QUIZ_ERROR',
+				type: 'USER_ERROR',
 				payload: err.response.data.error,
 			});
 		}
 	}
 
-	async function addQuiz(quiz) {
+	async function addUser(user) {
 		const config = {
 			headers: {
 				'Content-Type': 'application/json',
@@ -57,31 +56,31 @@ export const GlobalProvider = ({ children }) => {
 		};
 
 		try {
-			const res = await axios.post('/api/v1/quizzes', quiz, config);
+			const res = await axios.post('/api/v1/users', user, config);
 
 			dispatch({
-				type: 'ADD_QUIZ',
+				type: 'ADD_USER',
 				payload: res.data.data,
 			});
 		} catch (err) {
 			dispatch({
-				type: 'QUIZ_ERROR',
+				type: 'USER_ERROR',
 				payload: err.response.data.error,
 			});
 		}
 	}
 
 	return (
-		<GlobalContext.Provider
+		<UserGlobalContext.Provider
 			value={{
-				quizzes: state.quizzes,
 				error: state.error,
 				loading: state.loading,
-				getQuizzes,
-				deleteQuiz,
-				addQuiz,
+				users: state.users,
+				getUsers,
+				addUser,
+				deleteUser,
 			}}>
 			{children}
-		</GlobalContext.Provider>
+		</UserGlobalContext.Provider>
 	);
 };
