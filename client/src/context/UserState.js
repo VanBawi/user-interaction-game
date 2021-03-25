@@ -57,7 +57,7 @@ export const UserGlobalProvider = ({ children }) => {
 
 		try {
 			const res = await axios.post('/api/v1/users', user, config);
-
+			localStorage.setItem('user_data', JSON.stringify(res.data.data));
 			dispatch({
 				type: 'ADD_USER',
 				payload: res.data.data,

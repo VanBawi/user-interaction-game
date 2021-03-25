@@ -1,43 +1,34 @@
-import React, { useState, useContext } from 'react';
-
+import React, { useState, useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { UserGlobalContext } from '../context/UserState';
 import { uploadImage } from '../utils/uploadFunction';
 
 export const NewUser = () => {
 	const [name, setName] = useState('');
 	const [phone, setPhone] = useState('');
-	const [file, setFile] = useState('');
-	const [loading, setLoading] = useState(null);
+	const [user, setUser] = useState({});
 	const { addUser } = useContext(UserGlobalContext);
 
-	const uploadFile = async (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			setLoading(true);
-		}
-		const fileData = await uploadImage(file);
-
-		if (fileData.data) {
-			setFile(fileData.data);
-			setLoading(false);
-		}
-	};
+	useEffect(() => {
+		setUser({});
+	}, []);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const newUser = {
 			name,
 			phone,
-			receipt: file,
 		};
 		addUser(newUser);
+		setUser(newUser);
 	};
 
+	if (Object.keys(user).length !== 0 && user.constructor === Object) {
+		return <Redirect to='/image' />;
+	}
+
 	return (
-		<>
-			<a href='/quiz'>
-				<button>go to quiz</button>
-			</a>
+		<div className='container'>
 			<h3>Add New User</h3>
 			<form onSubmit={onSubmit}>
 				<div className='form-control'>
@@ -49,7 +40,7 @@ export const NewUser = () => {
 						placeholder='Enter name...'
 					/>
 				</div>
-				<div className='form-control'>
+				<div className='form-control' style={{ marginBottom: '5rem' }}>
 					<label htmlFor='phone'>Phone Number</label>
 					<input
 						type='number'
@@ -59,20 +50,8 @@ export const NewUser = () => {
 					/>
 				</div>
 
-				<div className='form-control'>
-					<label htmlFor='file'>Receipt </label>
-					<input
-						type='file'
-						name='file'
-						accept='video/*,image/*, .pdf/*, .pptx'
-						onChange={(e) => uploadFile(e)}
-					/>
-				</div>
-				<div>
-					<p style={{ color: 'green' }}> {loading ? 'uploading ...' : null} </p>
-				</div>
-				<button className='btn'>Add User</button>
+				<button className='btn'> Let's Start</button>
 			</form>
-		</>
+		</div>
 	);
 };

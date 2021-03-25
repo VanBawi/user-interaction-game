@@ -57,18 +57,50 @@ input[type='number'] {
 
 .btn {
 	cursor: pointer;
-	background-color: #30aab3;
+	background-color: #3344df;
 	box-shadow: var(--box-shadow);
 	color: #fff;
 	border: 0;
 	display: block;
 	font-size: 16px;
-	margin: 10px 0 30px;
+	margin: 0 auto;
 	padding: 10px;
-	width: 100%;
+	border-radius: 5px;
 }
 
 .btn:focus,
 .delete-btn:focus {
 	outline: 0;
+}
+
+.icons-wrapper {
+	display: flex;
+	padding: 2rem;
+	width: 100px;
+	background-color: #a0d9dd;
+	overflow: hidden;
+}
+
+.icons-flex {
+	/* display: flex; */
+	/* justify-content: space-around; */
+	background-color: #f5d271;
+}
+.selected-answers-wrapper {
+	border: 1px solid rgb(242, 242, 242);
+	/* margin-left: 1rem; */
+	/* height: 100%; */
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+}
+
+.selected-answers-array {
+	/* cursor: pointer; */
+	background-color: rgb(247, 244, 244);
+	display: block;
+	float: left;
+	/* margin: 0.2rem 0 0.3rem 0.6rem; */
+	/* border: 1px solid rgb(237, 226, 226); */
+	padding-left: 0.2rem;
+	padding-right: 0.2rem;
 }

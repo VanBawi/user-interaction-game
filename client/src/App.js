@@ -7,6 +7,7 @@ import { GlobalProvider } from './context/GlobalState';
 
 import { NewUser } from './components/NewUser';
 import { UserGlobalProvider } from './context/UserState';
+import { UploadFile } from './components/UploadFile';
 
 function App() {
 	return (
@@ -16,14 +17,13 @@ function App() {
 					<Header />
 					<Switch>
 						<Route exact path='/quiz'>
-							<div className='container'>
-								<TakeRandomQuiz />
-							</div>
+							<TakeRandomQuiz />
+						</Route>
+						<Route exact path='/image'>
+							<UploadFile />
 						</Route>
 						<Route exact path='/'>
-							<div className='container'>
-								<NewUser />
-							</div>
+							<NewUser />
 						</Route>
 					</Switch>
 				</Router>
