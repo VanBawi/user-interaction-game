@@ -1,106 +1,142 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 :root {
-	--box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 * {
-	box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
-	background-color: #f7f7f7;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	margin: 0;
-	font-family: 'Lato', sans-serif;
+  background-color: #f7f7f7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
 }
 
 .container {
-	margin: auto;
-	width: 350px;
+  margin: auto;
+  width: 350px;
 }
 
 h1 {
-	letter-spacing: 1px;
-	margin: 0;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
 h3 {
-	border-bottom: 1px solid rgb(218, 218, 218);
-	padding-bottom: 10px;
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 10px;
 }
 
 h4 {
-	margin: 0;
-	text-transform: uppercase;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 label {
-	display: inline-block;
-	margin: 10px 0;
+  display: inline-block;
+  margin: 10px 0;
 }
 
 input[type='text'],
 input[type='name'],
 input[type='number'] {
-	border: 1px solid #dedede;
-	border-radius: 2px;
-	display: block;
-	font-size: 16px;
-	padding: 10px;
-	width: 100%;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
 }
 
 .btn {
-	cursor: pointer;
-	background-color: #3344df;
-	box-shadow: var(--box-shadow);
-	color: #fff;
-	border: 0;
-	display: block;
-	font-size: 16px;
-	margin: 0 auto;
-	padding: 10px;
-	border-radius: 5px;
+  cursor: pointer;
+  background-color: #3344df;
+  -webkit-box-shadow: var(--box-shadow);
+          box-shadow: var(--box-shadow);
+  color: #fff;
+  border: 0;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .btn:focus,
 .delete-btn:focus {
-	outline: 0;
+  outline: 0;
 }
 
 .icons-wrapper {
-	display: flex;
-	padding: 2rem;
-	width: 100px;
-	background-color: #a0d9dd;
-	overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 2rem;
+  width: 100px;
+  background-color: #a0d9dd;
+  overflow: hidden;
 }
 
 .icons-flex {
-	/* display: flex; */
-	/* justify-content: space-around; */
-	background-color: #f5d271;
-}
-.selected-answers-wrapper {
-	border: 1px solid rgb(242, 242, 242);
-	/* margin-left: 1rem; */
-	/* height: 100%; */
-	margin-top: 2rem;
-	margin-bottom: 3rem;
+  background-color: #f5d271;
 }
 
-.selected-answers-array {
-	/* cursor: pointer; */
-	background-color: rgb(247, 244, 244);
-	display: block;
-	float: left;
-	/* margin: 0.2rem 0 0.3rem 0.6rem; */
-	/* border: 1px solid rgb(237, 226, 226); */
-	padding-left: 0.2rem;
-	padding-right: 0.2rem;
+.selected-answers-wrapper {
+  height: 300px;
+  position: relative;
 }
+
+.upper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.upper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  z-index: -1;
+  margin-left: -0.2rem;
+  margin-bottom: -0.35rem;
+  -webkit-transform: rotate(10deg);
+          transform: rotate(10deg);
+}
+
+.under {
+  margin-top: -0.9rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  margin-left: -0.4rem;
+  -webkit-transform: rotate(-10deg);
+          transform: rotate(-10deg);
+}
+
+.img-icons-over {
+  width: 38px;
+  height: 38px;
+}
+/*# sourceMappingURL=App.css.map */

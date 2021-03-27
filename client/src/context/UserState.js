@@ -7,6 +7,7 @@ const initialState = {
 	error: null,
 	loading: true,
 	users: [],
+	user: '',
 };
 
 // Create context
@@ -22,6 +23,22 @@ export const UserGlobalProvider = ({ children }) => {
 
 			dispatch({
 				type: 'GET_USERS',
+				payload: res.data.data,
+			});
+		} catch (err) {
+			dispatch({
+				type: 'USER_ERROR',
+				payload: err.response.data.error,
+			});
+		}
+	}
+
+	async function updateUser(requestBody) {
+		try {
+			const res = await axios.patch(`/api/v1/users`, requestBody);
+			localStorage.setItem('user_data', JSON.stringify(res.data.data));
+			dispatch({
+				type: 'UPDATE_USER',
 				payload: res.data.data,
 			});
 		} catch (err) {
@@ -79,6 +96,7 @@ export const UserGlobalProvider = ({ children }) => {
 				getUsers,
 				addUser,
 				deleteUser,
+				updateUser,
 			}}>
 			{children}
 		</UserGlobalContext.Provider>

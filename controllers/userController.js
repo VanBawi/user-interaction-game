@@ -54,39 +54,9 @@ exports.addUser = async (req, res, next) => {
 // @route   POST /api/v1/users
 // @access  Public
 exports.updateUser = async (req, res, next) => {
+	console.log('req.body in controller', req.body);
 	try {
-		const user = await User.create(req.body);
-
-		// localStorage.setItem('user', user);
-
-		return res.status(201).json({
-			success: true,
-			data: user,
-		});
-	} catch (err) {
-		if (err.name === 'ValidationError') {
-			const messages = Object.values(err.errors).map((val) => val.message);
-
-			return res.status(400).json({
-				success: false,
-				error: messages,
-			});
-		} else {
-			return res.status(500).json({
-				success: false,
-				error: 'Server Error',
-			});
-		}
-	}
-};
-
-// @desc    Add user
-// @route   POST /api/v1/users
-// @access  Public
-exports.getUser = async (req, res, next) => {
-	try {
-		// const id = localStorage.getItem('user');
-		const user = await User.findById(id);
+		const user = await User.findByIdAndUpdate(req.body._id, req.body, { new: true });
 
 		return res.status(201).json({
 			success: true,

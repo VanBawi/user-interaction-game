@@ -1,14 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { UserGlobalContext } from '../context/UserState';
 import { uploadImage } from '../utils/uploadFunction';
 
-export const UploadFile = () => {
+export const UploadFile = (props) => {
 	const [name, setName] = useState('');
 	const [phone, setPhone] = useState('');
 	const [file, setFile] = useState('');
 	const [loading, setLoading] = useState(null);
-	const { addUser } = useContext(UserGlobalContext);
+	const [currentUser, setCurrentUser] = useState({});
+	const [updatedUser, setUpdatedUser] = useState({});
+	const [updated, setUpdated] = useState(false);
+	const { updateUser } = useContext(UserGlobalContext);
+
+	useEffect(() => {
+		const userData = JSON.parse(localStorage.getItem('user_data'));
+		setCurrentUser(userData);
+	}, []);
+
+	useEffect(() => {
+		const userData = JSON.parse(localStorage.getItem('user_data'));
+		setUpdatedUser(userData);
+	}, [currentUser, updated]);
 
 	const uploadFile = async (e) => {
 		const file = e.target.files[0];
@@ -26,17 +39,31 @@ export const UploadFile = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const newUser = {
-			_id: 'id',
+			_id: currentUser._id,
 			receipt: file,
 		};
-		addUser(newUser);
+		updateUser(newUser);
+		setUpdated(true);
 	};
 
 	return (
 		<div className='container'>
-			<form onSubmit={onSubmit}>
+			<div>
+				{updatedUser && updatedUser.receipt ? (
+					<img
+						style={{
+							margin: '0 auto',
+							width: '100%',
+							height: '400px',
+							objectFit: 'contain',
+						}}
+						src={updatedUser.receipt}
+						alt='receipt'
+					/>
+				) : null}
+			</div>
+			<form>
 				<div className='form-control'>
-					<label htmlFor='file'>Receipt </label>
 					<input
 						type='file'
 						name='file'
@@ -47,10 +74,17 @@ export const UploadFile = () => {
 				<div>
 					<p style={{ color: 'green' }}> {loading ? 'uploading ...' : null} </p>
 				</div>
-				<a href='/quiz' style={{ textDecoration: 'none' }}>
-					<button className='btn'>Upload a file</button>
-				</a>
 			</form>
+
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<button className='btn' onClick={(e) => onSubmit(e)}>
+					Upload a file
+				</button>
+
+				<a href='/quiz' style={{ textDecoration: 'none' }}>
+					<button className='btn'>Next</button>
+				</a>
+			</div>
 		</div>
 	);
 };

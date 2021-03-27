@@ -16,6 +16,18 @@ export default (state, action) => {
 				...state,
 				users: state.users.filter((user) => user._id !== action.payload),
 			};
+		case 'UPDATE_USER':
+			return {
+				...state,
+				user: action.payload,
+				users: state.users.map((user) => {
+					if (user._id === action.payload._id) {
+						return user;
+					} else {
+						return user;
+					}
+				}),
+			};
 		case 'USER_ERROR':
 			return {
 				...state,
